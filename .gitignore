@@ -1,0 +1,8 @@
+data/gitlab-ce/srv/gitlab/config/*
+data/gitlab-ce/srv/gitlab/config/.gitkeep
+data/gitlab-ce/srv/gitlab/data/*
+data/gitlab-ce/srv/gitlab/data/.gitkeep
+data/gitlab-ce/srv/gitlab/logs/*
+data/gitlab-ce/srv/gitlab/logs/.gitkeep
+data/jenkins/var/jenkins_home/*
+data/jenkins/var/jenkins_home/.gitkeep
