@@ -1,0 +1,36 @@
+version: "2"
+services:     
+  apache: 
+    image: "httpd:2.4"
+    hostname: "localhost"
+    restart: "always"
+    volumes:    
+      - "${ROOT_DIR}/apache/usr/local/apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+      - "${ROOT_DIR}/apache/usr/local/apache2/conf/extra/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf"      
+      - "${ROOT_DIR}/apache/usr/local/apache2/htdocs:/usr/local/apache2/htdocs/"    
+    ports:
+      - "80:80"  
+  jenkins:
+    image: "jenkins:latest"
+    hostname: "jenkins.localhost"
+    restart: "always"
+    volumes:
+      - "${ROOT_DIR}/jenkins/var/jenkins_home:/var/jenkins_home" 
+    ports: 
+      - "9080:8080"
+      - "50000:50000"
+  gitlab:
+    image: "gitlab/gitlab-ce:latest"
+    restart: "always"
+    hostname: "gitlab.localhost"    
+    volumes:
+      - "${ROOT_DIR}/gitlab-ce/srv/gitlab/config:/etc/gitlab"
+      - "${ROOT_DIR}/gitlab-ce/srv/gitlab/logs:/var/log/gitlab"
+      - "${ROOT_DIR}/gitlab-ce/srv/gitlab/data:/var/opt/gitlab"
+    ports:      
+      - '9090:9090'
+      - '2224:22'
+    environment:    
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.example.com:9090'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
